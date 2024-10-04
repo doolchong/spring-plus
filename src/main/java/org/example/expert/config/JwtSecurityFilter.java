@@ -48,8 +48,8 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
                     AuthUser authUser = new AuthUser(Long.parseLong(userId), email, userRole, nickname);
 
                     JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(authUser);
-                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
-                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest)); // 유저의 ip나...user-agent등을 가져올 수 있음
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken); // 갑자기 user의 ip가 가져오고 싶은경우 사용하면 된다 왜? 정적 메서드니깐
                 }
             } catch (SecurityException | MalformedJwtException e) {
                 log.error("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.", e);
