@@ -6,7 +6,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.todo.dto.QTodoProjection;
 import org.example.expert.domain.todo.dto.TodoProjection;
-import org.example.expert.domain.todo.entity.QTodo;
 import org.example.expert.domain.todo.entity.Todo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -91,7 +90,7 @@ public class TodoQueryRepositoryImpl implements TodoQueryRepository {
 
     private BooleanExpression createdDateBetween(LocalDate startedAt, LocalDate endedAt) {
         if (startedAt != null && endedAt != null) {
-            return QTodo.todo.createdAt.between(startedAt.atStartOfDay(), endedAt.atTime(23, 59, 59));
+            return todo.createdAt.between(startedAt.atStartOfDay(), endedAt.atTime(23, 59, 59));
         }
         return null;
     }

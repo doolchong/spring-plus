@@ -20,11 +20,14 @@ public class Log {
 
     private final LocalDateTime createdAt = LocalDateTime.now();
 
-    private Log(String logMessage) {
+    private String ip;
+
+    private Log(String logMessage, String ip) {
         this.logMessage = logMessage;
+        this.ip = ip;
     }
 
-    public static Log from(String logMessage) {
-        return new Log(logMessage);
+    public static Log from(String logMessage, String ip) {
+        return new Log(logMessage, ip);
     }
 }
