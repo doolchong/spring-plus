@@ -50,6 +50,12 @@ dependencies {
 
     // Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // health check
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // AWS S3
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.767'
 }
 
 tasks.named('test') {
