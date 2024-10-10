@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -28,4 +30,19 @@ public class AdminAccessLoggingAspect {
         log.info("Admin Access Log - User ID: {}, Request Time: {}, Request URL: {}, Method: {}",
                 userId, requestTime, requestUrl, joinPoint.getSignature().getName());
     }
+
+    @Around("execution(* org.example.expert.domain.user.service.UserService.getUserList(..))")
+    public Object advicePackage(ProceedingJoinPoint joinPoint) throws Throwable {
+        long startTime = System.currentTimeMillis();
+
+        try {
+            return joinPoint.proceed();
+
+        } finally {
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            log.info("::: ExecutionTime: {}ms", executionTime);
+        }
+    }
+
 }

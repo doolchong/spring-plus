@@ -31,14 +31,19 @@ public class User extends Timestamped {
         this.nickname = nickname;
     }
 
-    private User(Long id, String email, UserRole userRole) {
+    public User(String nickname) {
+        this.nickname = nickname;
+    }
+
+    private User(Long id, String email, UserRole userRole, String nickname) {
         this.id = id;
         this.email = email;
         this.userRole = userRole;
+        this.nickname = nickname;
     }
 
     public static User fromAuthUser(AuthUser authUser) {
-        return new User(authUser.getId(), authUser.getEmail(), authUser.getUserRole());
+        return new User(authUser.getId(), authUser.getEmail(), UserRole.of(authUser.getAuthorities().stream().toList().get(0).getAuthority()), authUser.getNickname());
     }
 
     public void changePassword(String password) {
@@ -52,5 +57,4 @@ public class User extends Timestamped {
     public void updateImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
 }
